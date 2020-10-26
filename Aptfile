@@ -1,1 +1,2 @@
 mediainfo
+curl -L https://yt-dl.org/latest/youtube-dl -o /usr/bin/youtube-dl
