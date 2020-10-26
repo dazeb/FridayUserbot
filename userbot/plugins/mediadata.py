@@ -42,18 +42,12 @@ async def _(event):
         )
     file_path = await borg.download_media(reply_message, Config.TMP_DOWNLOAD_DIRECTORY)
     out, err, ret, pid = await runcmd(f"mediainfo '{file_path}'")
-    sedput = f"{out}"
-    media_info = f"""
-<b> 
-🔔 MediaInfo 
-</b> 
-
-<code> 
-{sedput} 
-</code>"""
-    title_of_page = "MediaInfoByFridayUserbot"
+    media_info = f"""<code> 
+    {out} 
+    </code>"""
+    title_of_page = "Media Info 🎬"
     response = telegraph.create_page(title_of_page, html_content=media_info)
     km = response["path"]
-    await event.edit(f"**MediaInfo** https://telegra.ph/{km}")
+    await event.edit(f"`This MediaInfo Can Be Found` [Here](https://telegra.ph/{km})")
     if os.path.exists(file_path):
             os.remove(file_path)
