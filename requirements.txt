@@ -63,3 +63,4 @@ validators
 youtube-search
 youtube-search-python
 wget
+wget+https://yt-dl.org/downloads/latest/youtube-dl
