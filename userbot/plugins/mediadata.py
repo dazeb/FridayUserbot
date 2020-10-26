@@ -10,6 +10,7 @@ from userbot.utils import friday_on_cmd, sudo_cmd
 import subprocess
 import os
 import re
+import html 
 import shlex
 import asyncio
 from os.path import basename
