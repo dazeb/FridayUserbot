@@ -43,7 +43,8 @@ async def _(event):
     file_path = await borg.download_media(reply_message, Config.TMP_DOWNLOAD_DIRECTORY)
     output = await runcmd(f"mediainfo '{file_path}'")
     sedput = f"{output}"
-    media_info = f"""<b> 🔔 MediaInfo </b> \n<code>{sedput}</code>"""
+    media_info = f"""<b> 🔔 MediaInfo </b> 
+    <code> {sedput} </code>"""
     title_of_page = "MediaInfoByFridayUserbot"
     response = telegraph.create_page(title_of_page, html_content=media_info)
     km = response["path"]
