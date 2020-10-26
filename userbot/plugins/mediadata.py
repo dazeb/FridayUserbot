@@ -18,7 +18,7 @@ async def _(event):
             "Reply To a Media."
         )
     file_path = await borg.download_media(reply_message, Config.TMP_DOWNLOAD_DIRECTORY)
-    proc = subprocess.Popen(["mediainfo '{file_path}'"], stdout=subprocess.PIPE, shell=True)
+    proc = subprocess.Popen([f"mediainfo '{file_path}'"], stdout=subprocess.PIPE, shell=True)
     (out, err) = proc.communicate()
     media_info = f"<b> MediaInfo </b> \n"
     media_info += f"<code>{out}</code>"
