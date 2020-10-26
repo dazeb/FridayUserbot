@@ -1,3 +1,6 @@
+# Originally By @DeletedUser420
+# Ported - @StarkxD
+
 import asyncio
 import os
 import time
@@ -5,9 +8,28 @@ from datetime import datetime
 from userbot.uniborgConfig import Config
 from userbot.utils import friday_on_cmd, sudo_cmd
 import subprocess
+import os
+import re
+import shlex
+import asyncio
+from os.path import basename
+from typing import Tuple, List, Optional
 from telegraph import Telegraph, exceptions, upload_file
 telegraph = Telegraph()
 tgnoob = telegraph.create_account(short_name="Friday 🇮🇳")
+
+async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
+    """ run command in terminal """
+    args = shlex.split(cmd)
+    process = await asyncio.create_subprocess_exec(*args,
+                                                   stdout=asyncio.subprocess.PIPE,
+                                                   stderr=asyncio.subprocess.PIPE)
+    stdout, stderr = await process.communicate()
+    return (stdout.decode('utf-8', 'replace').strip(),
+            stderr.decode('utf-8', 'replace').strip(),
+            process.returncode,
+            process.pid)
+
 @friday.on(friday_on_cmd(pattern="mediainfo$"))  # pylint:disable=E0602
 async def _(event):
     if event.fwd_from:
@@ -18,10 +40,9 @@ async def _(event):
             "Reply To a Media."
         )
     file_path = await borg.download_media(reply_message, Config.TMP_DOWNLOAD_DIRECTORY)
-    proc = subprocess.Popen([f"mediainfo '{file_path}'"], stdout=subprocess.PIPE, shell=True)
-    (out, err) = proc.communicate()
+    output = await runcmd(f"mediainfo '{file_path}'")
     media_info = f"<b> MediaInfo </b> \n"
-    media_info += f"<code>{out}</code>"
+    media_info += f"<code>{output}</code>"
     title_of_page = "MediaInfoByFridayUserbot"
     response = telegraph.create_page(title_of_page, html_content=media_info)
     km = response["path"]
