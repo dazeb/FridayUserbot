@@ -41,8 +41,8 @@ async def _(event):
             "Reply To a Media."
         )
     file_path = await borg.download_media(reply_message, Config.TMP_DOWNLOAD_DIRECTORY)
-    output = await runcmd(f"mediainfo '{file_path}'")
-    sedput = f"{output}"
+    out, err, ret, pid = await runcmd(f"mediainfo '{file_path}'")
+    sedput = f"{out}"
     media_info = f"""<b> 🔔 MediaInfo </b> 
     <code> {sedput} </code>"""
     title_of_page = "MediaInfoByFridayUserbot"
