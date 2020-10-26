@@ -28,8 +28,12 @@ async def _(event):
     sedlyf = wget.download(kekme, out = path)
     stark = (f'youtube-dl --force-ipv4 -q -o "./music/%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality 128k ' + mo)
     os.system(stark)
-    await myself_stark.edit("`Song Downloaded Sucessfully. Let Me Upload it Here.`")
+    await asyncio.sleep(4)
     km = f"./music/{thum}.mp3"
+    if os.path.exists(km):
+        await myself_stark.edit("`Song Downloaded Sucessfully. Let Me Upload it Here.`")
+    else:
+        await myself_stark.edit("`SomeThing Went Wrong 😕")
     capy = f"**Song Name ➠** `{thum}` \n**Requested For ➠** `{urlissed}` \n**Channel ➠** `{thums}` \n**Link ➠** `{mo}`" 
     await borg.send_file(event.chat_id,
                 km,
